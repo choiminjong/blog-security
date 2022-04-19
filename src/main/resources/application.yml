@@ -1,0 +1,34 @@
+spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/test2
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl #클래스 변수명 그대로 테이블이 생성한다.
+      use-new-id-generator-mappings: false  #JPA 전략을 사용하지 않고 커넥션하는 데이터베이스 auto increment 전략을 그래도 사용한다.
+    properties:
+      hibernate:
+        show_sql: true
+        #format_sql: true
+
+  jackson: #Lazy-loading으로 인해 empty-beans이 생길 수 있을때 예외처리 해주는 옵션이다.
+    serialization:
+      fail-on-empty-beans: false
+
+  thymeleaf:
+    cache: false
+    prefix: classpath:templates/
+    suffix: .html
+
+logging.level:
+  org.hibernate.SQL: debug
+  #org.hibernate.type: trace
+
+blog:
+  key: blog1234
