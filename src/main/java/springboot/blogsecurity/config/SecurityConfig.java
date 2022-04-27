@@ -9,9 +9,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import springboot.blogsecurity.filter.MyFilter1;
+import springboot.blogsecurity.filter.MyFilter3;
+
 
 @Configuration
 @EnableWebSecurity //스프링 시큐리티 필터를 스프링 필터체인에 등록합니다.
@@ -27,6 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.addFilterBefore(new MyFilter3(),BasicAuthenticationFilter.class);
         http
                 .addFilter(corsConfig.corsFilter())
                 .csrf().disable()
