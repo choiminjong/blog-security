@@ -13,6 +13,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import springboot.blogsecurity.filter.MyFilter1;
 import springboot.blogsecurity.filter.MyFilter3;
+import springboot.blogsecurity.jwt.JwtAuthenticaticationFilter;
 
 
 @Configuration
@@ -32,11 +33,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(new MyFilter3(),BasicAuthenticationFilter.class);
         http
                 .addFilter(corsConfig.corsFilter())
+                .addFilter(new JwtAuthenticaticationFilter(authenticationManager())) //AuthenticationManager
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
                 .formLogin().disable()
-                .httpBasic().disable()
                 .httpBasic().disable()
                 .authorizeRequests()
                 .antMatchers("/api/v1/user/**")
