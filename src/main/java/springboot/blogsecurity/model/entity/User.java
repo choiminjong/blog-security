@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User extends BaseTimeEntity{
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
