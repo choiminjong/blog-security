@@ -14,6 +14,8 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import springboot.blogsecurity.filter.MyFilter1;
 import springboot.blogsecurity.filter.MyFilter3;
 import springboot.blogsecurity.jwt.JwtAuthenticaticationFilter;
+import springboot.blogsecurity.jwt.JwtAuthorizationFilter;
+import springboot.blogsecurity.repository.UserRepository;
 
 
 @Configuration
@@ -22,6 +24,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private CorsConfig corsConfig; //CORS 필터
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -34,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .addFilter(corsConfig.corsFilter())
                 .addFilter(new JwtAuthenticaticationFilter(authenticationManager())) //AuthenticationManager
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(), userRepository )) //AuthenticationManager
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()

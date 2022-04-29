@@ -43,5 +43,21 @@ public class RestApiController {
         return "화원가입이 완료되었습니다.";
     }
 
+    //user,manager ,admin 권한만 접근 가능
+    @GetMapping("/api/v1/user")
+    public String user() {
+        return "user";
+    }
 
+    //manager,admin 권한만 접근 가능
+    @GetMapping("/api/v1/manager")
+    public String manager() {
+        return "manager";
+    }
+
+    //dmin 권한만 접근 가능
+    @GetMapping("/api/v1/admin")
+    public String admin() {
+        return "admin";
+    }
 }
